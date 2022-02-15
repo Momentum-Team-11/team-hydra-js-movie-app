@@ -8,35 +8,28 @@ function listMovies() {
     .then((res) => res.json())
     .then((data) => {
       for (let movie of data) {
+      renderMovieItem(movie);
       }
-      console.log(data);
     });
 }
 
 listMovies();
 
-form.addEventListener("click", function (event) {
+form.addEventListener("submit", function (event) {
   event.preventDefault();
-
-  if (event.target.classList.contains("button")) {
-    mList(event.target);
-  }
-});
-
-function mList() {
   const titleText = document.getElementById("title").value;
   fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      title: title,
+      title: titleText,
     })
-      .then((res) => res.json())
-      .then((data) => {
-        renderMovieItem(data);
-      }),
-  });
-}
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    renderMovieItem(data);
+  })
+})
 
 function renderMovieItem(movie) {
   const formEl = document.createElement("li");
