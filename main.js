@@ -23,6 +23,7 @@ form.addEventListener("click", function (event){
 }) 
 
 function mList () {
+  const titleText = document.getElementById('title').value
   fetch(url, {
   method: "POST",
   headers: { 'Content-Type': 'application/json' },
@@ -32,5 +33,12 @@ function mList () {
     })
   .then((res) => res.json())
   .then((data) => {
-  
+  renderMovieItem(data)
+  })})}
+
+  function renderMovieItem(movie) {
+    const formEl = document.createElement("li")
+    formEl.id = movie.id 
+    formEl.classList.add("added")
+    formEl.innerHTML = `<span>${movie.title}</span>`
   }
