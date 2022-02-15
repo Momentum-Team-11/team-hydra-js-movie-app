@@ -1,4 +1,5 @@
 const url = "http://localhost:3000/movies";
+const form = document.getElementById("movie-input")
 
 function listMovies() {
   document.getElementById("movieList").innerHTML = "";
@@ -7,7 +8,13 @@ function listMovies() {
     .then((data) => {
       for (let movie of data) {
       }
+      console.log(data)
     });
 }
 
-console.log(listMovies());
+listMovies()
+
+form.addEventListener("click", function (event){
+  event.preventDefault()
+  
+}) 
