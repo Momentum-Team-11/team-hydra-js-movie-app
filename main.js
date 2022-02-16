@@ -58,14 +58,29 @@ function deleteMovie(element) {
 }
 
 function editMovie(element) {
-  const editForm = document.createElement('form id="edit-form"');
-  editForm.innerHTML = `<input type="text" id="edit-title">
-    <button type="submit" class="button">Edit</button>`;
-  const movieId = element.parentElement.id;
-  fetch(url + "/" + movieId)
-    .then((res) => res.json())
-    .then((data) => {
-      const currentTitle = document.getElementById("edit-title");
-      currentTitle.value = data.title;
-    });
+  showEditInput(element.parentElement)
+  }
+
+function showEditInput(movieItem) {
+  movieItem.innerHTML = `
+  <input class="edit-text input-reset ba b--black-20 pa2 mb2 w-60" type="text" value="${movieItem.textContent}" autofocus>
+  <button class='save bn f6 link br1 ph2 pv1 ml1 dib white bg-green' data-note=${movieItem.id}>save</button>
+  <button class='cancel bn f6 link br1 ph2 pv1 ml2 dib black bg-light-gray'>cancel</button>
+  `
 }
+
+// function editMovie(element) {
+//   const editDiv = document.createElement('div');
+//   editDiv.innerHTML = `<form id="edit-input">
+//   <input type="text" id="edit-title">
+//   <button type="submit" class="button">Edit</button>
+//   </form>`;
+  
+//   const movieId = element.parentElement.id;
+//   fetch(url + "/" + movieId)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       const currentTitle = document.getElementById("edit-title");
+//       currentTitle.value = data.title;
+//     });
+// }
