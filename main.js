@@ -46,6 +46,10 @@ list.addEventListener("click", (e) => {
   if (e.target.classList.contains("edit")) {
     editMovie(e.target);
   }
+  if (e.target.classList.contains('cancel')) {
+    // hideEditControls(e.target.parentElement)
+    cancelCulture(e.target)
+  }
 });
 
 function deleteMovie(element) {
@@ -68,6 +72,28 @@ function showEditInput(movieItem) {
   <button class='cancel bn f6 link br1 ph2 pv1 ml2 dib black bg-light-gray'>cancel</button>
   `
 }
+
+function cancelCulture(element) {
+  const movieId = element.parentElement.id;
+  fetch(url + "/" + movieId)
+  .then((res) => res.json())
+    .then((data) => {
+      element.parentElement.innerHTML =  `<span>${data.title}</span><i class="ml2 dark-red fas fa-times delete"></i><i class="ml3 fas fa-edit edit"></i>`
+    });
+};
+  
+
+
+
+
+// function hideEditControls(movieItem) {
+//   fetch(`http://localhost:3000/movies/${movieItem.id}`)
+//   .then((res) => res.json())
+//   .then((data) => {
+//     renderMovieItem(movieItem, data)
+//   }) 
+// }
+
 
 // function editMovie(element) {
 //   const editDiv = document.createElement('div');
