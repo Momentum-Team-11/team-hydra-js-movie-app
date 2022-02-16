@@ -58,3 +58,15 @@ function deleteMovie (element) {
     element.parentElement.remove()
   }
   )}
+
+  function editMovie (element) {
+    const movieId = element.parentElement.id
+    fetch(url + '/' + movieId, {
+      method: 'PATCH',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+      title: titleText.value,
+    }) .then (function () {
+    
+    }
+    )}
