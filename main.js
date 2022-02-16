@@ -1,5 +1,3 @@
-
-
 const url = "http://localhost:3000/movies";
 const form = document.getElementById("movie-input");
 const list = document.getElementById("movie-list");
@@ -10,7 +8,7 @@ function listMovies() {
     .then((res) => res.json())
     .then((data) => {
       for (let movie of data) {
-      renderMovieItem(movie);
+        renderMovieItem(movie);
       }
     });
 }
@@ -25,13 +23,13 @@ form.addEventListener("submit", function (event) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title: titleText,
-    })
+    }),
   })
-  .then((res) => res.json())
-  .then((data) => {
-    renderMovieItem(data);
-  })
-})
+    .then((res) => res.json())
+    .then((data) => {
+      renderMovieItem(data);
+    });
+});
 
 function renderMovieItem(movie) {
   const formEl = document.createElement("li");
@@ -41,32 +39,33 @@ function renderMovieItem(movie) {
   list.append(formEl);
 }
 
-list.addEventListener('click', (e) => {
-  if (e.target.classList.contains('delete')) {
-  deleteMovie(e.target)
+list.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    deleteMovie(e.target);
   }
-  if (e.target.classList.contains('edit')) {
-    editMovie(e.target)
+  if (e.target.classList.contains("edit")) {
+    editMovie(e.target);
   }
-})
+});
 
-function deleteMovie (element) {
-  const movieId = element.parentElement.id
-  fetch(url + '/' + movieId, {
-    method: 'DELETE',
-  }) .then (function () {
-    element.parentElement.remove()
-  }
-  )}
+function deleteMovie(element) {
+  const movieId = element.parentElement.id;
+  fetch(url + "/" + movieId, {
+    method: "DELETE",
+  }).then(function () {
+    element.parentElement.remove();
+  });
+}
 
-  function editMovie (element) {
-    const movieId = element.parentElement.id
-    fetch(url + '/' + movieId, {
-      method: 'PATCH',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-      title: titleText.value,
-    }) .then (function () {
-    
-    }
-    )}
+function editMovie(element) {
+  const editForm = document.createElement('form id="edit-form"');
+  editForm.innerHTML = `<input type="text" id="edit-title">
+    <button type="submit" class="button">Edit</button>`;
+  const movieId = element.parentElement.id;
+  fetch(url + "/" + movieId)
+    .then((res) => res.json())
+    .then((data) => {
+      const currentTitle = document.getElementById("edit-title");
+      currentTitle.value = data.title;
+    });
+}
